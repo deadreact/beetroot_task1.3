@@ -20,10 +20,10 @@ enum class State : uint8_t {
 
 
 void initializePins() {
-  pinMode(pin_led_blue, INPUT);
+  pinMode(pin_led_blue, OUTPUT);
   pinMode(pin_led_red, OUTPUT);
   digitalWrite(pin_led_blue, LOW);
-  digitalWrite(pin_led_red, LOW);
+  digitalWrite(pin_led_red, HIGH);
 }
 
 void initializeFilesystem() {
@@ -75,6 +75,10 @@ void setup() {
 
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  static auto redLedState = LOW;
+  digitalWrite(pin_led_blue, redLedState);
+  redLedState = (redLedState == LOW) ? HIGH : LOW;
+  digitalWrite(pin_led_red, redLedState);
+  delay(100);
 }
 
